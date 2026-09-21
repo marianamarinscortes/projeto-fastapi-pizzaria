@@ -1,4 +1,4 @@
-# API Pizzaria
+# Pizzaria API
 
 API REST desenvolvida com **Python e FastAPI** para simular o funcionamento de um sistema de pedidos de uma pizzaria.
 
@@ -42,13 +42,23 @@ Pretendo continuar evoluindo o projeto conforme avanço nos estudos, adicionando
 pip install -r requirements.txt
 ```
 
-### 2. Criar os itens iniciais do cardápio
+### 2. Configurar as variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto, utilizando o `.env.example` como modelo.
+
+```env
+SECRET_KEY=sua_chave_secreta
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+```
+
+### 3. Criar os itens iniciais do cardápio
 
 ```bash
 python seed.py
 ```
 
-### 3. Executar a API
+### 4. Executar a API
 
 ```bash
 python -m uvicorn main:app --reload
@@ -60,7 +70,7 @@ A API estará disponível em:
 http://127.0.0.1:8000
 ```
 
-### 4. Acessar a documentação
+### 5. Acessar a documentação
 
 A documentação interativa do FastAPI pode ser acessada pelo Swagger:
 
