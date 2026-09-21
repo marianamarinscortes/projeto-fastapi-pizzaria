@@ -1,4 +1,4 @@
-# Pizzaria API
+# API Pizzaria
 
 API REST desenvolvida com **Python e FastAPI** para simular o funcionamento de um sistema de pedidos de uma pizzaria.
 
@@ -67,4 +67,5 @@ A documentação interativa do FastAPI pode ser acessada pelo Swagger:
 ```text
 http://127.0.0.1:8000/docs
 ```
-A partir disso será possível testar as rotas e funcionalidades da API
+
+A partir da documentação, é possível testar as rotas e funcionalidades da API.
