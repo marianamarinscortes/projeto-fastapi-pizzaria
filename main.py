@@ -1,4 +1,4 @@
-# para rodar o código, execute no terminal: uvicorn main:app --reload
+# uvicorn main:app --reload
 
 from fastapi import FastAPI
 from fastapi.security import OAuth2PasswordBearer

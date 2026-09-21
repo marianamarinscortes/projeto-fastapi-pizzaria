@@ -2,13 +2,9 @@ from sqlalchemy import create_engine, Column, String, Integer, Boolean, Float, F
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy_utils.types import ChoiceType
 
-# cria a conexão do seu banco
 db = create_engine("sqlite:///database.db")
 
-# cria a base do banco, ele permite criar uma tabela no banco e faz a tradução de uma classe do python para uma tabela no banco, por isso precisa usar ela de parâmetro ao criar as classes
 Base = declarative_base()
-
-# criar as classes/tabelas do banco
 
 class User(Base):
     __tablename__ = "users"
@@ -28,7 +24,6 @@ class User(Base):
         self.admin = admin
 
 
-# Pedido
 class Order(Base):
     __tablename__ = "orders"
 
@@ -36,7 +31,7 @@ class Order(Base):
     status = Column("status", String) # pending, canceled, completed
     user_id = Column("user_id", ForeignKey("users.id"))
     price = Column("price", Float)
-    items = relationship("OrderItem", cascade="all, delete") # if you delete an order, it also deletes all order items related to that order
+    items = relationship("OrderItem", cascade="all, delete")
 
     def __init__(self, user_id, status="PENDING", price=0):
         self.user_id = user_id
@@ -45,33 +40,43 @@ class Order(Base):
 
     def calculate_price(self):
 
-        # order_price = 0
-        # for item in self.items:
-        #     item_price = item.unit_price * item.quantity
-        #     order_price += item_price
-
         self.price = sum(item.unit_price * item.quantity for item in self.items) # list comprehension
 
 
-# ItensPedido
 class OrderItem(Base):
     __tablename__ = "order_items"
 
     id = Column("id", Integer, primary_key=True, autoincrement=True)
     quantity = Column("quantity", Integer)
-    flavor = Column("flavor", String)
-    size = Column("size", String)
     unit_price = Column("unit_price", Float)
-    order = Column("order", ForeignKey("orders.id"))
+    menu_item_id = Column("menu_item_id", ForeignKey("menu_items.id"))
+    order_id = Column("order_id", ForeignKey("orders.id"))
 
-    def __init__(self, quantity, flavor, size, unit_price, order):
+    def __init__(self, quantity, unit_price, menu_item_id, order_id):
         self.quantity = quantity
-        self.flavor = flavor
-        self.size = size
         self.unit_price = unit_price
-        self.order = order
+        self.menu_item_id = menu_item_id
+        self.order_id = order_id
 
-# executa a criação dos metadados do seu banco (cria efetivamente o banco de dados)
+
+class MenuItem(Base):
+    __tablename__= "menu_items"
+
+    id = Column("id", Integer, primary_key=True, autoincrement=True)
+    name = Column("name", String)
+    category = Column("category", String)
+    size = Column("size", String)
+    price = Column("price", Float)
+    available = Column("available", Boolean)
+
+    def __init__(self, name, category, size, price, available):
+        self.name = name
+        self.category = category
+        self.size = size
+        self.price = price
+        self.available = available
+
+
 # Base.metadata.create_all(db)
 
 # migrate database
