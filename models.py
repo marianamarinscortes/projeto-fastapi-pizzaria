@@ -9,14 +9,14 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = "users"
 
-    id = Column("id", Integer, primary_key=True, autoincrement=True) # cria a coluna no banco de dados do id, que precisa do parâmetro de primary key que diz que ele é único e o autoincrement que automaticamente preenche com um número que vai aumentando
+    id = Column("id", Integer, primary_key=True, autoincrement=True)
     name = Column("name", String)
     email = Column("email", String, nullable=False)
     password = Column("password", String)
     active = Column("active", Boolean)
     admin = Column("admin", Boolean, default=False)
 
-    def __init__(self, name, email, password, active=True, admin=False): # Isso define o que o código espera que eu passe de informação quando for criar um usuário
+    def __init__(self, name, email, password, active=True, admin=False):
         self.name = name
         self.email = email
         self.password = password
